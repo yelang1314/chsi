@@ -16,10 +16,21 @@ Python 单端口 HTTP 服务，自带 Docker 镜像，可直接部署到任何�
 
 | 平台 | 操作 | 免费域名 |
 | --- | --- | --- |
+| **Vercel**（推荐，免绑卡） | 导入仓库 → Framework 选 Other → Deploy | `xxx.vercel.app` |
 | Render | New → **Web Service** → 选仓库（自动识别 Dockerfile） | `xxx.onrender.com` |
 | Koyeb | Create Service → **Dockerfile** | `xxx.koyeb.app` |
 | Hugging Face Spaces | 需付费档（2026-10 起 Docker SDK 不再免费） | `用户名-空间名.hf.space` |
 | 本机 / 自建服务器 | `docker build -t chsi . && docker run -p 7860:7860 chsi` | 自己的域名 |
+
+### Vercel 说明
+
+`vercel.json` 把全部请求 rewrite 到 `api/index.py`，该文件继承 `server.Handler`
+（Vercel Python Runtime 原生支持 `class handler(BaseHTTPRequestHandler)`），
+原始路径通过 `?__path=` 传回并还原，业务代码零改动。
+
+三个限制：函数超时 60s（PDF 生成接近上限）、请求体 4.5MB、无持久磁盘
+（**必须配 R2**，否则数据随实例销毁）。
+
 
 ## 环境变量
 

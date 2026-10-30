@@ -1,0 +1,10 @@
+.git
+__pycache__/
+*.pyc
+.venv/
+session/
+release/
+_tmp_chsi/
+_bk_*/
+_release_backup_*/
+_session_backup_*/
