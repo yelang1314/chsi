@@ -79,6 +79,10 @@ KEY_COOKIES = "session_cookies.json"
 KEY_ARCHIVE = "archive_after_login.html"
 KEY_LOCAL_DATA = "local_data.json"
 KEY_CURRENT_USER = "current_user.json"
+
+# 照片 URL 前缀。本地/容器里是 /archive/photo；
+# Serverless 平台（Vercel）只把 /api/* 路由给函数，所以那边会改成 /api/photo。
+PHOTO_URL_PREFIX = os.environ.get("PHOTO_URL_PREFIX", "/archive/photo")
 PHOTO_EXT = ".jpg"
 # 新上传照片是否压缩（缩放到最长边<=1200、JPEG 质量85）；环境变量设为 0 可关闭
 COMPRESS_PHOTOS = os.environ.get("COMPRESS_PHOTOS", "1") != "0"
@@ -216,7 +220,7 @@ def _photo_key(item_id, key):
 def _photo_url(item_id, key):
     """照片访问 URL（admin 页直接用作 <img src>）"""
     do = "lqpic.do" if key == "lqPic" else "xlpic.do"
-    return "/archive/photo/%s?pid=%s" % (do, item_id)
+    return "%s/%s?pid=%s" % (PHOTO_URL_PREFIX, do, item_id)
 
 
 def _photo_ver(item_id, key):

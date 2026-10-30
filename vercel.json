@@ -1,15 +1,8 @@
 {
-  "version": 2,
   "functions": {
-    "api/index.py": {
+    "api/[...path].py": {
       "maxDuration": 60,
-      "includeFiles": "{server.py,storage.py,index.html,wap/**/*,archive/**/*}"
+      "includeFiles": "{server.py,storage.py,index.html,wap/**,archive/**}"
     }
-  },
-  "rewrites": [
-    {
-      "source": "/(.*)",
-      "destination": "/api/index?__path=/$1"
-    }
-  ]
+  }
 }
