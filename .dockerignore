@@ -1,0 +1,39 @@
+# 本地虚拟环境
+.venv/
+venv/
+
+# Python 缓存
+__pycache__/
+*.pyc
+*.pyo
+
+# 运行时状态：整个 session 目录都不进镜像
+# 里面有真实 cookie、上传照片、登录后归档 HTML —— Space 仓库是公开的，绝不能带上去
+session/
+data/
+
+# 本地备份与发布产物
+release/
+_tmp_chsi/
+_bk_*/
+_release_backup_*/
+_session_backup_*/
+
+# 仅本地使用的脚本 / 文档 / 杂项
+start_local.bat
+deploy_windows.bat
+deploy_windows.ps1
+install_autostart.ps1
+install_python.bat
+build_release.ps1
+_test_save.py
+README_部署.md
+2a27e5e6c71605cfc7e25521428b5587.txt
+
+# 其它
+*.log
+*.genie
+.git/
+.gitignore
+.workbuddy/
+.workbuddy-ai/

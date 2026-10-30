@@ -1,0 +1,35 @@
+# Render 部署配置（基础设施即代码）
+# 在 Render 控制台 → New → Web Service → 选仓库后，Render 会自动读取本文件。
+# 标了 sync: false 的变量不会写进仓库，创建时由你在网页上填。
+services:
+  - type: web
+    name: chsi
+    runtime: docker
+    plan: free                 # 免费档：512MB RAM，15 分钟无访问休眠
+    region: oregon
+    dockerfilePath: ./Dockerfile
+    healthCheckPath: /
+    envVars:
+      - key: HOST
+        value: "0.0.0.0"
+
+      # ---- 数据持久化：二选一，填齐哪组就用哪个后端 ----
+      # 推荐 R2 / S3：不会休眠，免费 10GB
+      - key: S3_BUCKET
+        sync: false
+      - key: S3_ENDPOINT
+        sync: false
+      - key: S3_ACCESS_KEY
+        sync: false
+      - key: S3_SECRET_KEY
+        sync: false
+      - key: S3_REGION
+        value: auto
+
+      # 或者 Supabase Storage（免费 1GB，7 天无活动会暂停）
+      - key: SUPABASE_URL
+        sync: false
+      - key: SUPABASE_SERVICE_KEY
+        sync: false
+      - key: SUPABASE_BUCKET
+        value: chsi
